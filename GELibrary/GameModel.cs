@@ -88,7 +88,7 @@ namespace GELibrary
                 throw new InvalidOperationException("You must LoadGame() prior to FindItems()");
             }
 
-            Dictionary<int, List<Item>> searchResult = null;
+            Dictionary<string, List<Item>> searchResult = null;
             ItemsByQuality resultByQuality = null;
 
             DataTable itemTable = new DataTable("items");
@@ -106,7 +106,7 @@ namespace GELibrary
             // When no object matches, the result can be null, or contain only empty lists.
             foreach (ItemID itemID in itemIDs)
             {
-                resultByQuality  = _gnomanEmpire.Fortress.StockManager.ItemsByQuality(itemID);
+                resultByQuality  = _gnomanEmpire.Fortress.StockManager.ItemsByQuality(itemID.ToString());
                 if (resultByQuality != null)
                     searchResult = resultByQuality.ItemsOfQualityOrHigher(quality).Items;
                 else
@@ -284,11 +284,11 @@ namespace GELibrary
             // The following values are in the CharacterSkillType Array however we do not want them.
             int index = -1;
 
-            index = skillNamesTemp.IndexOf("LaborStart");
-            skillNamesTemp.RemoveAt(index);
+            //index = skillNamesTemp.IndexOf("LaborStart");
+            //skillNamesTemp.RemoveAt(index);
 
-            index = skillNamesTemp.IndexOf("LaborEnd");
-            skillNamesTemp.RemoveAt(index);
+            //index = skillNamesTemp.IndexOf("LaborEnd");
+            //skillNamesTemp.RemoveAt(index);
 
             index = skillNamesTemp.IndexOf("Count");
             skillNamesTemp.RemoveAt(index);
@@ -303,8 +303,8 @@ namespace GELibrary
             skillNamesTemp.Remove("Medic");
             skillNamesTemp.Insert(skillNamesTemp.IndexOf("Construction"), "Medic");
 
-            skillNamesTemp.Remove("Caretaker");
-            skillNamesTemp.Insert(skillNamesTemp.IndexOf("Construction"), "Caretaker");
+            skillNamesTemp.Remove("Caretaking");
+            skillNamesTemp.Insert(skillNamesTemp.IndexOf("Construction"), "Caretaking");
 
             skillNamesTemp.Remove("NaturalAttack");
             skillNamesTemp.Remove("Brawling");
@@ -509,7 +509,7 @@ namespace GELibrary
                     // Character skills
                     foreach (CharacterSkillType skill in skillTypes)
                     {
-                        tmpRow[col++] = Char.Value.SkillLevel(skill);
+                        tmpRow[col++] = Char.Value.SkillLevel(skill.ToString());
                     }
 
                     mCharSkills.Rows.Add(tmpRow);
@@ -636,7 +636,7 @@ namespace GELibrary
         {
             Profession profession = _gnomanEmpire.World.AIDirector.PlayerFaction.Members[gnomeKey].Mind.Profession;
             int index = Array.IndexOf(skillNames, skillName);
-            return profession.AllowedSkills.IsSkillAllowed(skillTypes[index]);
+            return profession.AllowedSkills.IsSkillAllowed(skillTypes[index].ToString());
         }
 
         public bool isSkillUsedByProfession(string profTitle, string skillName)
@@ -648,7 +648,7 @@ namespace GELibrary
                 if (profession.Title == profTitle)
                 {
                     int index = Array.IndexOf(skillNames, skillName);
-                    return profession.AllowedSkills.IsSkillAllowed(skillTypes[index]);
+                    return profession.AllowedSkills.IsSkillAllowed(skillTypes[index].ToString());
                 }
             }
             return false;

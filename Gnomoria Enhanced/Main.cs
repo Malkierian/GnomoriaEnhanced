@@ -225,7 +225,7 @@ namespace GnomoriaEnhanced
 
         private void Initialize_DoWork(object sender, DoWorkEventArgs e)
         {
-            gnomoria = new GameModel();            
+            gnomoria = new GameModel();
             Result res = gnomoria.Initialize();
             if (res.Success == true)
             {

@@ -108,7 +108,7 @@ namespace GELibrary
             Dictionary<string,Dictionary<string,ItemID>> familyValue = null;
             Dictionary<string, ItemID> subFamilyValue = null;
             Dictionary<string, ItemID> allSubFamilyValue = null;
-            string displayName = Item.GroupName(itemID);
+            string displayName = Item.GroupName(itemID.ToString());
 
             // Create family (and associated sub-dictionary) if needed. Get its reference.
             if (families.ContainsKey(familyKey) == false)
@@ -270,7 +270,7 @@ namespace GELibrary
             Add("Mechanism", "Switch", ItemID.Lever);
             Add("Mechanism", "Switch", ItemID.PressurePlate);
 
-            Add("Mechanism", "Device", ItemID.Floodgate); // Is it Mechanical Wall?
+            Add("Mechanism", "Device", ItemID.MechanicalWall); // Is it Mechanical Wall? SQ: I think so in 0.9.18
             Add("Mechanism", "Device", ItemID.Hatch);
 
             Add("Mechanism", "Power Source", ItemID.Handcrank);
