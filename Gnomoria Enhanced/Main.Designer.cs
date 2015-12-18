@@ -1,4 +1,6 @@
-﻿namespace GnomoriaEnhanced
+﻿using System.Windows.Forms;
+
+namespace GnomoriaEnhanced
 {
     partial class Main
     {
@@ -28,8 +30,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.initializeGameModelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,9 +77,11 @@
             this.itemTypeCombo = new System.Windows.Forms.ComboBox();
             this.itemQualityCombo = new System.Windows.Forms.ComboBox();
             this.findItemButton = new System.Windows.Forms.Button();
+            this.deleteItemsButton = new System.Windows.Forms.Button();
             this.dataGridViewItems = new System.Windows.Forms.DataGridView();
             this.findItemResultLabel = new System.Windows.Forms.Label();
             this.itemSubFamilyCombo = new System.Windows.Forms.ComboBox();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -110,6 +114,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.initializeGameModelToolStripMenuItem,
+            this.saveToolStripMenuItem,
             this.openToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -406,20 +411,20 @@
             // 
             // dataGridViewCharSkills
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.dataGridViewCharSkills.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.dataGridViewCharSkills.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewCharSkills.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewCharSkills.BackgroundColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial Narrow", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCharSkills.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCharSkills.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewCharSkills.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCharSkills.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dataGridViewCharSkills.Location = new System.Drawing.Point(2, 31);
@@ -523,6 +528,7 @@
             this.itemFinderPanel.Controls.Add(this.itemTypeCombo, 1, 2);
             this.itemFinderPanel.Controls.Add(this.itemQualityCombo, 3, 0);
             this.itemFinderPanel.Controls.Add(this.findItemButton, 2, 2);
+            this.itemFinderPanel.Controls.Add(this.deleteItemsButton, 2, 1);
             this.itemFinderPanel.Controls.Add(this.dataGridViewItems, 0, 3);
             this.itemFinderPanel.Controls.Add(this.findItemResultLabel, 3, 2);
             this.itemFinderPanel.Controls.Add(this.itemSubFamilyCombo, 1, 1);
@@ -544,7 +550,7 @@
             this.itemSubFamilyLabel.Location = new System.Drawing.Point(3, 30);
             this.itemSubFamilyLabel.Name = "itemSubFamilyLabel";
             this.itemSubFamilyLabel.Size = new System.Drawing.Size(238, 30);
-            this.itemSubFamilyLabel.TabIndex = 9;
+            this.itemSubFamilyLabel.TabIndex = 1;
             this.itemSubFamilyLabel.Text = "Item Sub-Family:";
             this.itemSubFamilyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -566,7 +572,7 @@
             this.itemTypeLabel.Location = new System.Drawing.Point(3, 60);
             this.itemTypeLabel.Name = "itemTypeLabel";
             this.itemTypeLabel.Size = new System.Drawing.Size(238, 30);
-            this.itemTypeLabel.TabIndex = 1;
+            this.itemTypeLabel.TabIndex = 2;
             this.itemTypeLabel.Text = "Item Type:";
             this.itemTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -577,7 +583,7 @@
             this.itemQualityLabel.Location = new System.Drawing.Point(491, 0);
             this.itemQualityLabel.Name = "itemQualityLabel";
             this.itemQualityLabel.Size = new System.Drawing.Size(238, 30);
-            this.itemQualityLabel.TabIndex = 2;
+            this.itemQualityLabel.TabIndex = 3;
             this.itemQualityLabel.Text = "Item Quality (at least):";
             this.itemQualityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -588,7 +594,7 @@
             this.itemFamilyCombo.Location = new System.Drawing.Point(247, 3);
             this.itemFamilyCombo.Name = "itemFamilyCombo";
             this.itemFamilyCombo.Size = new System.Drawing.Size(238, 21);
-            this.itemFamilyCombo.TabIndex = 3;
+            this.itemFamilyCombo.TabIndex = 4;
             this.itemFamilyCombo.SelectedValueChanged += new System.EventHandler(this.ItemFamilyCombo_SelectedItemChanged);
             // 
             // itemTypeCombo
@@ -598,7 +604,7 @@
             this.itemTypeCombo.Location = new System.Drawing.Point(247, 63);
             this.itemTypeCombo.Name = "itemTypeCombo";
             this.itemTypeCombo.Size = new System.Drawing.Size(238, 21);
-            this.itemTypeCombo.TabIndex = 4;
+            this.itemTypeCombo.TabIndex = 6;
             // 
             // itemQualityCombo
             // 
@@ -607,7 +613,7 @@
             this.itemQualityCombo.Location = new System.Drawing.Point(735, 3);
             this.itemQualityCombo.Name = "itemQualityCombo";
             this.itemQualityCombo.Size = new System.Drawing.Size(241, 21);
-            this.itemQualityCombo.TabIndex = 5;
+            this.itemQualityCombo.TabIndex = 7;
             // 
             // findItemButton
             // 
@@ -615,10 +621,21 @@
             this.findItemButton.Location = new System.Drawing.Point(491, 63);
             this.findItemButton.Name = "findItemButton";
             this.findItemButton.Size = new System.Drawing.Size(238, 24);
-            this.findItemButton.TabIndex = 6;
-            this.findItemButton.Text = "Find items";
+            this.findItemButton.TabIndex = 9;
+            this.findItemButton.Text = "Find Items";
             this.findItemButton.UseVisualStyleBackColor = true;
             this.findItemButton.Click += new System.EventHandler(this.findItemButton_Click);
+            // 
+            // deleteItemsButton
+            // 
+            this.deleteItemsButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.deleteItemsButton.Location = new System.Drawing.Point(491, 33);
+            this.deleteItemsButton.Name = "deleteItemsButton";
+            this.deleteItemsButton.Size = new System.Drawing.Size(238, 24);
+            this.deleteItemsButton.TabIndex = 8;
+            this.deleteItemsButton.Text = "Delete Selected";
+            this.deleteItemsButton.UseVisualStyleBackColor = true;
+            this.deleteItemsButton.Click += new System.EventHandler(this.deleteItemsButton_Click);
             // 
             // dataGridViewItems
             // 
@@ -632,8 +649,9 @@
             this.dataGridViewItems.Location = new System.Drawing.Point(3, 93);
             this.dataGridViewItems.Name = "dataGridViewItems";
             this.dataGridViewItems.ReadOnly = true;
+            this.dataGridViewItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewItems.Size = new System.Drawing.Size(973, 293);
-            this.dataGridViewItems.TabIndex = 7;
+            this.dataGridViewItems.TabIndex = 10;
             // 
             // findItemResultLabel
             // 
@@ -642,7 +660,7 @@
             this.findItemResultLabel.Location = new System.Drawing.Point(735, 60);
             this.findItemResultLabel.Name = "findItemResultLabel";
             this.findItemResultLabel.Size = new System.Drawing.Size(241, 30);
-            this.findItemResultLabel.TabIndex = 8;
+            this.findItemResultLabel.TabIndex = 11;
             this.findItemResultLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // itemSubFamilyCombo
@@ -652,8 +670,15 @@
             this.itemSubFamilyCombo.Location = new System.Drawing.Point(247, 33);
             this.itemSubFamilyCombo.Name = "itemSubFamilyCombo";
             this.itemSubFamilyCombo.Size = new System.Drawing.Size(238, 21);
-            this.itemSubFamilyCombo.TabIndex = 10;
+            this.itemSubFamilyCombo.TabIndex = 5;
             this.itemSubFamilyCombo.SelectedIndexChanged += new System.EventHandler(this.ItemSubFamilyCombo_SelectedItemChanged);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -736,7 +761,6 @@
         private System.Windows.Forms.ComboBox itemFamilyCombo;
         private System.Windows.Forms.ComboBox itemTypeCombo;
         private System.Windows.Forms.ComboBox itemQualityCombo;
-        private System.Windows.Forms.Button findItemButton;
         private System.Windows.Forms.DataGridView dataGridViewItems;
         private System.Windows.Forms.Label findItemResultLabel;
         private System.Windows.Forms.Label itemSubFamilyLabel;
@@ -745,5 +769,8 @@
         private System.Windows.Forms.Button toggleWorkSkills;
         private System.Windows.Forms.Button toggleCombatSkills;
         private System.Windows.Forms.Button toggleAttributes;
+        private System.Windows.Forms.Button findItemButton;
+        private System.Windows.Forms.Button deleteItemsButton;
+        private ToolStripMenuItem saveToolStripMenuItem;
     }
 }

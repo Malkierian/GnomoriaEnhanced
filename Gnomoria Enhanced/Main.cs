@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-
+using Game;
 using GELibrary;
 using GnomoriaEnhanced.UI;
 
@@ -35,6 +35,7 @@ namespace GnomoriaEnhanced
         private Font dataGridViewCharSkillsHeaderFont;
         private string _loadErrorMessage;
         private string _loadedSavedGameName;
+        private Dictionary<uint, Item> foundItems;
         
         // Status variables
         private bool _settingsVerified = false;
@@ -197,6 +198,11 @@ namespace GnomoriaEnhanced
             FindItem();
         }
 
+        private void deleteItemsButton_Click(object sender, EventArgs e)
+        {
+            DeleteItems(sender);
+        }
+
         private void ItemFamilyCombo_SelectedItemChanged(Object sender, EventArgs e)
         {
             UpdateItemFinderCombos(true); // True = update the list of subfamilies and the list of item types.
@@ -331,6 +337,31 @@ namespace GnomoriaEnhanced
         /// Load a saved game from the disk and update the displayed information. Uses a background worker.
         /// </summary>
         /// <param name="savedGame">Saved game file name, relative to the Saved game directory</param>
+
+        private void Save()
+        {
+            /*if (File.Directory != null)
+                File.CopyTo(Path.Combine(File.Directory.FullName, Path.GetFileNameWithoutExtension(File.Name)) + ".backup", true);*/
+
+            if (GnomanEmpire.Instance != null)
+            {
+                var worker = new BackgroundWorker();
+                worker.DoWork += SaverSave;
+                worker.RunWorkerCompleted += SaverComplete;
+                worker.RunWorkerAsync();
+            }
+        }
+
+        private void SaverSave(object sender, DoWorkEventArgs doWorkEventArgs)
+        {
+            GnomanEmpire.Instance.SaveGame().Wait();
+        }
+
+        private void SaverComplete(object sender, RunWorkerCompletedEventArgs runWorkerCompletedEventArgs)
+        {
+            //AddStatusText("Game saved.");
+        }
+        
         private void LoadGame(string savedGame)
         {
             // Stop here if the game model is not initialized yet.
@@ -537,7 +568,12 @@ namespace GnomoriaEnhanced
                 itemSubFamilyCombo.SelectedItem.ToString(),
                 itemTypeCombo.SelectedItem.ToString());
             GameLibrary.ItemQuality quality = (GameLibrary.ItemQuality)Enum.Parse(typeof(GameLibrary.ItemQuality), itemQualityCombo.SelectedItem.ToString(), true);
-            dataGridViewItems.DataSource = gnomoria.FindItems(itemIDs, quality);
+            if (foundItems != null)
+            {
+                foundItems.Clear();
+                foundItems = null;
+            }
+            dataGridViewItems.DataSource = gnomoria.FindItems(itemIDs, quality, out foundItems);
 
             // Set various properties of the grid view
             dataGridViewItems.AllowUserToAddRows = false;
@@ -553,6 +589,40 @@ namespace GnomoriaEnhanced
 
             // Update result
             findItemResultLabel.Text = "Found " + dataGridViewItems.Rows.Count + " objects.";
+        }
+
+        private void DeleteItems(object sender)
+        {
+            var selectedRows = dataGridViewItems.SelectedRows;
+            var selectedCount = selectedRows.Count;
+            if (selectedCount > 0)
+            {
+                DialogResult result =
+                    System.Windows.Forms.MessageBox.Show(
+                        "Are you sure you want to delete " + selectedCount + " items?", "Delete Items",
+                        MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    foreach(DataGridViewRow row in selectedRows)
+                    {
+                        Item item = null;
+                        foundItems.TryGetValue(UInt32.Parse(row.Cells[0].Value.ToString()), out item);
+                        item.PrepareForDeletion();
+                        StorageContainer parent = item.Parent as StorageContainer;
+                        if (parent != null)
+                        {
+                            parent.RemoveItem(item);
+                        }
+                        GnomanEmpire.Instance.Fortress.StockManager.RemoveItem(item);
+                    }
+                    System.Windows.Forms.MessageBox.Show("Items deleted!");
+                    FindItem();
+                }
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("No rows selected!");
+            }
         }
 
         /// <summary>
@@ -1032,6 +1102,11 @@ namespace GnomoriaEnhanced
                     this.dataGridViewCharSkills.Columns[x].Visible = true;
                 }
             }
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Save();
         }
     }
 }

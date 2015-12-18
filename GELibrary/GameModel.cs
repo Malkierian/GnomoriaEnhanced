@@ -81,7 +81,7 @@ namespace GELibrary
 
         #region Methods
 
-        public DataTable FindItems(IList<ItemID> itemIDs, GameLibrary.ItemQuality quality)
+        public DataTable FindItems(IList<ItemID> itemIDs, GameLibrary.ItemQuality quality, out Dictionary<uint, Item> foundItems)
         {
             if (_gnomanEmpire == null)
             {
@@ -90,6 +90,7 @@ namespace GELibrary
 
             Dictionary<string, List<Item>> searchResult = null;
             ItemsByQuality resultByQuality = null;
+            foundItems = new Dictionary<uint, Item>();
 
             DataTable itemTable = new DataTable("items");
 
@@ -151,6 +152,7 @@ namespace GELibrary
                             }
 
                             tmpRow[col++] = item.Position.ToString();
+                            foundItems.Add(item.ID, item);
 
                             itemTable.Rows.Add(tmpRow);
                         }
